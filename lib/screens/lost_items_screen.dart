@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lost_and_found/screens/add_item_screen.dart';
 import '../models/item.dart';
 
 class LostItemsScreen extends StatefulWidget {
@@ -25,6 +26,15 @@ class _LostItemsScreenState extends State<LostItemsScreen> {
                 );
               },
             ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddItemScreen()),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
