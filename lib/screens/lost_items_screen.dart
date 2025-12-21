@@ -14,7 +14,7 @@ class _LostItemsScreenState extends State<LostItemsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Lost & Found')),
+      appBar: AppBar(title: Text('Lost Items')),
       body: _items.isEmpty
           ? const Center(child: Text("No items to show"))
           : ListView.builder(

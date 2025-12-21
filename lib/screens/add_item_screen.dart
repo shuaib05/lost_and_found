@@ -1,13 +1,53 @@
 import 'package:flutter/material.dart';
 
-class AddItemScreen extends StatelessWidget {
+class AddItemScreen extends StatefulWidget {
   const AddItemScreen({super.key});
 
+  @override
+  State<AddItemScreen> createState() => _AddItemScreenState();
+}
+
+class _AddItemScreenState extends State<AddItemScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _descController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Add Item")),
-      body: const Center(child: Text("Add item screen")),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _nameController,
+                decoration: InputDecoration(labelText: "Item name"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Enter item name';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: _descController,
+                decoration: InputDecoration(labelText: "Item description"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Enter item description';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(onPressed: () {}, child: Text('Submit')),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
