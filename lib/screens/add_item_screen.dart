@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/item.dart';
 
 class AddItemScreen extends StatefulWidget {
   const AddItemScreen({super.key});
@@ -43,7 +44,18 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 },
               ),
               SizedBox(height: 16),
-              ElevatedButton(onPressed: () {}, child: Text('Submit')),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    final item = Item(
+                      name: _nameController.text,
+                      desc: _descController.text,
+                    );
+                    Navigator.pop(context, item);
+                  }
+                },
+                child: Text('Submit'),
+              ),
             ],
           ),
         ),

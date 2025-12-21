@@ -27,11 +27,16 @@ class _LostItemsScreenState extends State<LostItemsScreen> {
               },
             ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          final newItem = await Navigator.push<Item>(
             context,
             MaterialPageRoute(builder: (context) => AddItemScreen()),
           );
+          if (newItem != null) {
+            setState(() {
+              _items.add(newItem);
+            });
+          }
         },
         child: Icon(Icons.add),
       ),
