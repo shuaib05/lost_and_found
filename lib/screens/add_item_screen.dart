@@ -12,6 +12,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descController = TextEditingController();
+  final TextEditingController _numController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,10 +36,21 @@ class _AddItemScreenState extends State<AddItemScreen> {
               SizedBox(height: 16),
               TextFormField(
                 controller: _descController,
-                decoration: InputDecoration(labelText: "Item description"),
+                decoration: InputDecoration(labelText: "Item description:"),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Enter item description';
+                    return 'Enter item description:';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: _numController,
+                decoration: InputDecoration(labelText: 'Phone No:'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Enter Phone No';
                   }
                   return null;
                 },
@@ -50,6 +62,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     final item = Item(
                       name: _nameController.text,
                       desc: _descController.text,
+                      num: _numController.text,
                     );
                     Navigator.pop(context, item);
                   }
