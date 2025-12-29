@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/item.dart';
+import '../screens/image_preview.dart';
 import 'add_item_screen.dart';
+import 'dart:io';
 
 class LostItemsScreen extends StatefulWidget {
   const LostItemsScreen({super.key});
@@ -76,19 +78,47 @@ class _LostItemsScreenState extends State<LostItemsScreen> {
 
                 return Card(
                   child: ListTile(
-                    leading: IconButton(
-                      icon: Icon(
-                        item.isFound
-                            ? Icons.check_box
-                            : Icons.check_box_outline_blank,
-                        color: item.isFound ? Colors.green : null,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          item.isFound = !item.isFound;
-                        });
-                        _saveItems();
-                      },
+                    leading: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            item.isFound
+                                ? Icons.check_box
+                                : Icons.check_box_outline_blank,
+                            color: item.isFound ? Colors.green : null,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              item.isFound = !item.isFound;
+                            });
+                            _saveItems();
+                          },
+                        ),
+                        if (item.imagePath != null)
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      ImagePreview(imagePath: item.imagePath!),
+                                ),
+                              );
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.file(
+                                File(item.imagePath!),
+                                width: 45,
+                                height: 45,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )
+                        else
+                          const Icon(Icons.image_not_supported, size: 45),
+                      ],
                     ),
                     title: Text(
                       item.name,
@@ -109,6 +139,15 @@ class _LostItemsScreenState extends State<LostItemsScreen> {
                             style: TextStyle(color: Colors.red),
                           ),
                       ],
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.delete, color: Colors.grey),
+                      onPressed: () {
+                        setState(() {
+                          _items.remove(item);
+                        });
+                        _saveItems();
+                      },
                     ),
                   ),
                 );

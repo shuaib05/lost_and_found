@@ -2,12 +2,14 @@ class Item {
   String name;
   String desc;
   String num;
+  String? imagePath;
   bool isFound;
 
   Item({
     required this.name,
     required this.desc,
     required this.num,
+    this.imagePath,
     this.isFound = false,
   });
 
@@ -15,6 +17,7 @@ class Item {
     'name': name,
     'desc': desc,
     'num': num,
+    'imagePath': imagePath,
     'isFound': isFound,
   };
 
@@ -22,6 +25,7 @@ class Item {
     name: map['name'],
     desc: map['desc'],
     num: map['num'],
+    imagePath: map['imagePath'],
     isFound: map['isFound'],
   );
 }
