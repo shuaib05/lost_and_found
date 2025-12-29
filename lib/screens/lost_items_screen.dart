@@ -48,7 +48,16 @@ class _LostItemsScreenState extends State<LostItemsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lost Items'),
+        backgroundColor: Colors.deepPurple,
+
+        title: const Text(
+          'Lost Items',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            color: Colors.white,
+          ),
+        ),
         actions: [
           DropdownButton<String>(
             value: showOnlyNotFound ? 'NotFound' : 'All',
@@ -60,23 +69,32 @@ class _LostItemsScreenState extends State<LostItemsScreen> {
               });
             },
             items: const [
-              DropdownMenuItem(value: 'All', child: Text('Show All')),
+              DropdownMenuItem(
+                value: 'All',
+                child: Text('Show All', style: TextStyle(color: Colors.white)),
+              ),
               DropdownMenuItem(
                 value: 'NotFound',
-                child: Text('Show Not Found Only'),
+                child: Text(
+                  'Show Not Found Only',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),
         ],
       ),
       body: displayedItems.isEmpty
-          ? const Center(child: Text('No items to show'))
+          ? const Center(
+              child: Text('No items to show', style: TextStyle(fontSize: 25)),
+            )
           : ListView.builder(
               itemCount: displayedItems.length,
               itemBuilder: (context, index) {
                 final item = displayedItems[index];
 
                 return Card(
+                  elevation: 3,
                   child: ListTile(
                     leading: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -126,6 +144,7 @@ class _LostItemsScreenState extends State<LostItemsScreen> {
                         decoration: item.isFound
                             ? TextDecoration.lineThrough
                             : null,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     subtitle: Column(
@@ -134,9 +153,23 @@ class _LostItemsScreenState extends State<LostItemsScreen> {
                         Text(item.desc),
                         Text(item.num),
                         if (item.isFound)
-                          const Text(
-                            'FOUND',
-                            style: TextStyle(color: Colors.red),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.green.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Text(
+                              'FOUND',
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
                           ),
                       ],
                     ),
@@ -153,7 +186,9 @@ class _LostItemsScreenState extends State<LostItemsScreen> {
                 );
               },
             ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
+        icon: const Icon(Icons.add),
+        label: const Text('Add Item'),
         onPressed: () async {
           final newItem = await Navigator.push<Item>(
             context,
@@ -167,7 +202,6 @@ class _LostItemsScreenState extends State<LostItemsScreen> {
             _saveItems();
           }
         },
-        child: const Icon(Icons.add),
       ),
     );
   }

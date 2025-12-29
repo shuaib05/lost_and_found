@@ -30,7 +30,17 @@ class _AddItemScreenState extends State<AddItemScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Add Item")),
+      appBar: AppBar(
+        title: Text(
+          "Add Item",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        ),
+        backgroundColor: Colors.deepPurple,
+      ),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Form(
@@ -75,7 +85,13 @@ class _AddItemScreenState extends State<AddItemScreen> {
                     ? ElevatedButton.icon(
                         onPressed: _pickImage,
                         icon: const Icon(Icons.image),
-                        label: const Text('Pick Image'),
+                        label: const Text(
+                          'Pick Image',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
                       )
                     : Image.file(
                         _selectedImage!,
@@ -96,7 +112,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
                       Navigator.pop(context, item);
                     }
                   },
-                  child: Text('Submit'),
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
                 ),
               ],
             ),

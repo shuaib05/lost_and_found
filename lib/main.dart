@@ -10,6 +10,9 @@ class Lost_and_Found extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: const LostItemsScreen());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const LostItemsScreen(),
+    );
   }
 }
